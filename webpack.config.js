@@ -11,12 +11,16 @@ module.exports = {
     filename: "[name].js"
   },
   resolve: {
-    extensions: [".js"],
+    extensions: ["", ".js"],
     modulesDirectories: ["./src", "node_modules"]
   },
   module: {
     loaders: [
-      {test: /\.js$/, loader: '6to5-loader', exclude: /node_modules/}
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: '6to5-loader'
+      }
     ]
   }
 };

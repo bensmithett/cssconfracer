@@ -4,7 +4,7 @@
   "description": "A stupid racing game",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server"
   },
   "author": "",
   "license": "MIT",
@@ -14,6 +14,7 @@
     "flux": "^2.0.1",
     "immutable": "^3.6.2",
     "react": "^0.12.2",
-    "webpack": "^1.5.3"
+    "webpack": "^1.5.3",
+    "webpack-dev-server": "^1.7.0"
   }
 }
