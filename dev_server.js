@@ -3,6 +3,7 @@ var WebpackDevServer = require('webpack-dev-server');
 var config = require("./webpack.config");
 
 new WebpackDevServer(webpack(config), {
+  historyApiFallback: true,
   hot: true,
   publicPath: config.output.publicPath,
   stats: {
