@@ -13,10 +13,14 @@
     "6to5-loader": "^3.0.0",
     "flux": "^2.0.1",
     "immutable": "^3.6.2",
+    "keymirror": "^0.1.1",
+    "object-assign": "^2.0.0",
     "react": "^0.12.2",
-    "react-hot-loader": "^1.1.4",
     "react-router": "^0.11.6",
-    "webpack": "^1.5.3",
+    "webpack": "^1.5.3"
+  },
+  "devDependencies": {
+    "react-hot-loader": "^1.1.4",
     "webpack-dev-server": "^1.7.0"
   }
 }
