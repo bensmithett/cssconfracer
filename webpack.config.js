@@ -1,14 +1,20 @@
 var path = require("path");
+var webpack = require("webpack");
 
 module.exports = {
   cache: true,
   context: __dirname,
   entry: {
-    index: "./src/index"
+    index: [
+      "webpack/hot/dev-server",
+      "webpack-dev-server/client?http://localhost:3000",
+      "./src/index"
+    ]
   },
   output: {
+    filename: "[name].js",
     path: path.join(__dirname, "./build"),
-    filename: "[name].js"
+    publicPath: "/build/"
   },
   resolve: {
     extensions: ["", ".js"],
@@ -19,8 +25,11 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: '6to5-loader'
+        loaders: ["react-hot", "6to5-loader"]
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
 };
