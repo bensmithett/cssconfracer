@@ -3,16 +3,11 @@ var Router = require("react-router");
 var Route = Router.Route;
 var DefaultRoute = Router.DefaultRoute;
 
-// Screen components
-var App = require("screens/app");
-var Inbox = require("screens/app/screens/inbox");
-var Outbox = require("screens/app/screens/outbox");
-var Home = require("screens/app/screens/home");
-
 module.exports = (
-  <Route name="app" path="/" handler={App}>
-    <Route name="inbox" handler={Inbox} />
-    <Route name="outbox" handler={Outbox} />
-    <DefaultRoute handler={Home} />
+  <Route name="app" path="/" handler={require("screens/app")}>
+    <Route name="waiting" handler={require("screens/app/screens/waiting")} />
+    <Route name="race" handler={require("screens/app/screens/race")} />
+    <Route name="result" handler={require("screens/app/screens/result")} />
+    <DefaultRoute handler={require("screens/app/screens/home")} />
   </Route>
 );
