@@ -26,7 +26,7 @@ const registeredCallback = function registeredCallback (payload) {
   return true;
 };
 
-AuthStore = createStore({
+const AuthStore = createStore({
   dispatcherToken: dispatcher.register(registeredCallback),
 
   getSignedInUser () {

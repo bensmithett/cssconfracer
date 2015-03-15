@@ -1,9 +1,30 @@
-var React = require("react");
+import React from "react";
+import createStoreMixin from "mixins/create_store_mixin";
+import UserStore from "stores/user_store";
+import AuthStore from "stores/auth_store";
+import AuthMixin from "mixins/auth_mixin";
 
-module.exports = React.createClass({
+const WaitingPage = React.createClass({
+  mixins: [
+    AuthMixin,
+    createStoreMixin(UserStore),
+  ],
+
+  getStateFromStores (props) {
+    const signedInUser = AuthStore.getSignedInUser();
+    return {
+      user: UserStore.get(signedInUser)
+    };
+  },
+
   render () {
     return (
-      <div>waiting</div>
+      <div>
+        <h1>Waiting for next race</h1>
+        You are {this.state.user.get("username")}
+      </div>
     );
-  }
+  },
 });
+
+export default WaitingPage;

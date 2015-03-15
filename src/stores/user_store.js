@@ -29,7 +29,7 @@ const registeredCallback = function registeredCallback (payload) {
   return true;
 };
 
-UserStore = createStore({
+const UserStore = createStore({
   dispatcherToken: dispatcher.register(registeredCallback),
 
   get (id) {

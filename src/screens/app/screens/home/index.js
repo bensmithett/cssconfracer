@@ -1,14 +1,27 @@
 import React from "react";
 import UserStore from "stores/user_store";
 import AuthStore from "stores/auth_store";
-import connectToStores from "utils/connect_to_stores";
+import createStoreMixin from "mixins/create_store_mixin";
+import {State as StateMixin} from "react-router";
 import SignedInHomepage from "./components/signed_in_homepage";
 import SignedOutHomepage from "./components/signed_out_homepage";
 import {requestUserCreation} from "actions/view_action_creators";
 
-let HomePage = React.createClass({
+const HomePage = React.createClass({
+  mixins: [
+    createStoreMixin(UserStore, AuthStore),
+    StateMixin,
+  ],
+
+  getStateFromStores (props) {
+    const signedInUser = AuthStore.getSignedInUser();
+    return {
+      user: signedInUser ? UserStore.get(signedInUser) : null
+    };
+  },
+
   componentDidMount () {
-    if (!this.props.user) {
+    if (!this.state.user) {
       requestUserCreation();
     }
   },
@@ -18,27 +31,18 @@ let HomePage = React.createClass({
     //   this.props.transitionTo("race");
     // }.bind(this), 2000);
 
-    const Page = this.props.user ? SignedInHomepage : SignedOutHomepage;
+    const Page = this.state.user ? SignedInHomepage : SignedOutHomepage;
 
     return (
       <div>
         <h1>Home</h1>
-        <Page user={this.props.user} />
+        <Page
+          user={this.state.user}
+          nextPath={this.getQuery().nextPath}
+        />
       </div>
     );
   }
 });
 
-const getStateFromStores = function getStateFromStores (props) {
-  const signedInUser = AuthStore.getSignedInUser();
-  return {
-    user: signedInUser ? UserStore.get(signedInUser) : null
-  };
-};
-
-if (module.makeHot) { HomePage = module.makeHot(HomePage); }
-
-export default connectToStores(HomePage,
-  [UserStore, AuthStore],
-  getStateFromStores
-);
+export default HomePage;

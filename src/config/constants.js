@@ -1,6 +1,6 @@
-keymirror = require("keymirror")
+import keymirror from "keymirror";
 
-module.exports = {
+const Constants = {
   PayloadSources: keymirror({
     VIEW_ACTION: null,
     SERVER_ACTION: null,
@@ -15,3 +15,5 @@ module.exports = {
     CHANGE: null,
   })
 };
+
+export default Constants;

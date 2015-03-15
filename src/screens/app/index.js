@@ -2,12 +2,9 @@ var React = require("react");
 var Router = require("react-router");
 var RouteHandler = Router.RouteHandler;
 var Link = Router.Link;
-var NavigationMixin = Router.Navigation;
 var UserStore = require("stores/user_store");
 
 module.exports = React.createClass({
-  mixins: [NavigationMixin],
-
   render () {
     return (
       <div>
@@ -20,7 +17,7 @@ module.exports = React.createClass({
           </ul>
         </header>
 
-        <RouteHandler transitionTo={this.transitionTo} />
+        <RouteHandler />
       </div>
     );
   },
