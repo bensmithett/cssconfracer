@@ -3,7 +3,6 @@ var Router = require("react-router");
 var RouteHandler = Router.RouteHandler;
 var Link = Router.Link;
 var NavigationMixin = Router.Navigation;
-var MenuActionCreators = require("actions/menu_action_creators");
 var UserStore = require("stores/user_store");
 
 module.exports = React.createClass({

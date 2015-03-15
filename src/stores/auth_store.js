@@ -3,18 +3,15 @@ import Immutable from "immutable";
 import {ActionTypes, EventTypes} from "config/constants";
 import {createStore} from "utils/store_utils";
 
-let users = Immutable.Map({});
+let store = Immutable.Map({
+  signedInUser: null,
+});
 
 const ActionHandlers = {
-  [ActionTypes.SET_USERNAME] (action) {
-    users = users.setIn([action.userId, "username"], action.username);
-  },
-
   [ActionTypes.CREATE_USER_SUCCESS] (action) {
-    users = users.set(action.userId, Immutable.Map({
-      "id": action.userId,
-      "username": "default-username",
-    }));
+    store = store.set("signedInUser", action.userId);
+    // Maybe this doesn't need to emit a change?
+    // It's not really useful until the user is also in UserStore.
   },
 };
 
@@ -23,18 +20,18 @@ const registeredCallback = function registeredCallback (payload) {
 
   if (typeof ActionHandlers[action.type] === "function") {
     ActionHandlers[action.type](action);
-    UserStore.emitChange();
+    AuthStore.emitChange();
   }
 
   return true;
 };
 
-UserStore = createStore({
+AuthStore = createStore({
   dispatcherToken: dispatcher.register(registeredCallback),
 
-  get (id) {
-    return users.get(id);
+  getSignedInUser () {
+    return store.get("signedInUser");
   },
 });
 
-export default UserStore;
+export default AuthStore;

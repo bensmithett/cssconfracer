@@ -7,6 +7,11 @@ module.exports = {
   }),
 
   ActionTypes: keymirror({
-    FOO: null,
+    CREATE_USER_SUCCESS: null,
+    SET_USERNAME: null,
+  }),
+
+  EventTypes: keymirror({
+    CHANGE: null,
   })
 };
