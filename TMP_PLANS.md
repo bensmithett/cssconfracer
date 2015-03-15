@@ -37,7 +37,7 @@ RaceResultsStore: {
 
 CurrentRaceStore: {
   id: "17:00 1/1/2015",
-  competitors: [1,4,79] // IDs from CompetitorStore,
+  competitors: [1,4,79] // IDs from UserStore,
   status: "WAITING" || "RACING" || "USER_FINISHED" || "ENDED",
   finalTime: "12345",
   progressPercent: 65,
