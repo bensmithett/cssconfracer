@@ -10,11 +10,17 @@ const Constants = {
   ActionTypes: keymirror({
     CREATE_USER_SUCCESS: null,
     SET_USERNAME: null,
-    START_YOUR_ENGINES: null,
+    RACE_STATUS_UPDATE: null,
   }),
 
   EventTypes: keymirror({
     CHANGE: null,
+  }),
+
+  MarshalStatus: keymirror({
+    ENGINE_STARTED: null,
+    RACING: null,
+    WAITING: null,
   })
 };
 

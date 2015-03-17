@@ -9,13 +9,16 @@ import {ActionTypes} from "config/constants";
 import {createStore} from "utils/store_utils";
 
 let raceMarshal = Immutable.Map({
-  currentRace: null,
+  raceId: null,
+  status: null,
 });
 
 const ActionHandlers = {
-  [ActionTypes.TIMING_EVENT] (action) {
-    // Update raceMarshal to reflect the world.
-    // Prooobably have a handler for different types of timing event.
+  [ActionTypes.RACE_STATUS_UPDATE] (action) {
+    raceMarshal = raceMarshal.merge({
+      raceId: action.raceId,
+      status: action.status,
+    });
   },
 };
 
@@ -34,7 +37,11 @@ const RaceMarshalStore = createStore({
   dispatcherToken: dispatcher.register(registeredCallback),
 
   getStatus () {
-    return raceMarshall;
+    return raceMarshal.get("status");
+  },
+
+  getRaceId () {
+    return raceMarshal.get("raceId");
   },
 });
 
