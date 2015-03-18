@@ -21,3 +21,18 @@ export function createStore (spec) {
 
   return store;
 };
+
+export function createRegisteredCallback (ActionHandlers) {
+  return function registeredCallback (payload) {
+    const action = payload.action;
+
+    if (typeof ActionHandlers[action.type] === "function") {
+      ActionHandlers[action.type](action);
+      if (typeof ActionHandlers.all === "function") {
+        ActionHandlers.all();
+      }
+    }
+
+    return true;
+  };
+};

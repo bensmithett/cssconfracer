@@ -6,7 +6,7 @@
 import dispatcher from "dispatcher";
 import Immutable from "immutable";
 import {ActionTypes} from "config/constants";
-import {createStore} from "utils/store_utils";
+import {createStore, createRegisteredCallback} from "utils/store_utils";
 
 let raceMarshal = Immutable.Map({
   raceId: null,
@@ -20,21 +20,14 @@ const ActionHandlers = {
       status: action.status,
     });
   },
-};
 
-const registeredCallback = function registeredCallback (payload) {
-  const action = payload.action;
-
-  if (typeof ActionHandlers[action.type] === "function") {
-    ActionHandlers[action.type](action);
+  all () {
     RaceMarshalStore.emitChange();
-  }
-
-  return true;
+  },
 };
 
 const RaceMarshalStore = createStore({
-  dispatcherToken: dispatcher.register(registeredCallback),
+  dispatcherToken: dispatcher.register(createRegisteredCallback(ActionHandlers)),
 
   getStatus () {
     return raceMarshal.get("status");

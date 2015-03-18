@@ -1,7 +1,7 @@
 import dispatcher from "dispatcher";
 import Immutable from "immutable";
 import {ActionTypes, EventTypes} from "config/constants";
-import {createStore} from "utils/store_utils";
+import {createStore, createRegisteredCallback} from "utils/store_utils";
 
 let users = Immutable.Map({});
 
@@ -16,21 +16,14 @@ const ActionHandlers = {
       "username": "default-username",
     }));
   },
-};
 
-const registeredCallback = function registeredCallback (payload) {
-  const action = payload.action;
-
-  if (typeof ActionHandlers[action.type] === "function") {
-    ActionHandlers[action.type](action);
+  all () {
     UserStore.emitChange();
-  }
-
-  return true;
+  },
 };
 
 const UserStore = createStore({
-  dispatcherToken: dispatcher.register(registeredCallback),
+  dispatcherToken: dispatcher.register(createRegisteredCallback(ActionHandlers)),
 
   get (id) {
     return users.get(id);
