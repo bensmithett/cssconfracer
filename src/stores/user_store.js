@@ -1,6 +1,6 @@
 import dispatcher from "dispatcher";
 import Immutable from "immutable";
-import {ActionTypes, EventTypes} from "config/constants";
+import {ActionTypes} from "config/constants";
 import {createStore, createRegisteredCallback} from "utils/store_utils";
 
 let users = Immutable.Map({});

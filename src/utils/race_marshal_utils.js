@@ -6,8 +6,6 @@ let status = null;
 
 const getStatus = function getStatus (time) {
   if (time.minutes() % 2) {
-    // Maybe this should be split into <30 & >30, so waiting for next race & viewing results of last race are 30 second blocks?
-    // Or maybe the component can just deal with that, it knows what screen it's on...
     return Status.WAITING;
   } else {
     if (time.seconds() <= 5) {
@@ -18,10 +16,19 @@ const getStatus = function getStatus (time) {
   }
 };
 
+// Race IDs increment at the end of a RACING period. Here's
+
+// Time      Status           ID
+// ---------------------------------------------------
+// 1:23:00   WAITING          1-24
+// 1:24:00   ENGINE_STARTED   1-24
+// 1:24:10   RACING           1-24
+// 1:25:00   WAITING          1-26
+
+
 const getRaceId = function getRaceId (time) {
   if (time.minutes() % 2) {
-    // bump us forward to the next race
-    time = time.clone()
+    time = time.clone();
     time.add(1, "minutes");
   }
   return time.format("YYYY-MM-DD-HH-mm");

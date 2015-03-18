@@ -32,10 +32,6 @@ const HomePage = React.createClass({
   },
 
   render () {
-    // setTimeout(function () {
-    //   this.props.transitionTo("race");
-    // }.bind(this), 2000);
-
     const Page = this.state.user ? SignedInHomepage : SignedOutHomepage;
 
     return (
