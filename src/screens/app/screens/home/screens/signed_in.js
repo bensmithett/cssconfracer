@@ -14,7 +14,7 @@ const SignedInHomepage = React.createClass({
           value={this.props.user.get("username")}
           onChange={this._handleUsernameChange}
         />
-        <Link to={this.props.nextPath || "waiting"}>
+        <Link to="waiting">
           Race!
         </Link>
       </div>

@@ -34,7 +34,7 @@ const HomePage = React.createClass({
         <h1>Home</h1>
         {
           this.state.user ?
-          <SignedIn user={this.state.user} nextPath={this.props.query.nextPath} />
+          <SignedIn user={this.state.user} />
           :
           <SignedOut />
         }
