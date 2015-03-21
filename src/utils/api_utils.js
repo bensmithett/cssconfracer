@@ -6,7 +6,11 @@ const ApiUtils = {
     setTimeout(function () {
       createUserSuccess(1);
     }, 2000);
-  }
+  },
+
+  saveRaceResult (raceId, userId, time) {
+    console.log("Saving...", raceId, userId, time);
+  },
 };
 
 export default ApiUtils;

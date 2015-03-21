@@ -2,6 +2,8 @@ import React from "react";
 
 import {MarshalStatus} from "config/constants";
 
+import {completedRace} from "actions/view_action_creators";
+
 import UserStore from "stores/user_store";
 import AuthStore from "stores/auth_store";
 import RaceMarshalStore from "stores/race_marshal_store";
@@ -18,7 +20,6 @@ const RacePage = React.createClass({
   ],
 
   componentWillMount () {
-    // We only care about race ID you hit the page with, not subsequent updates from the Marshal
     this.setState({
       currentStatus: RaceMarshalStore.getStatus(),
       currentRaceId: RaceMarshalStore.getRaceId(),
@@ -36,7 +37,7 @@ const RacePage = React.createClass({
 
   componentWillUpdate (nextProps, nextState) {
     if (nextState.progress > 10) {
-      this.transitionTo("result", null, {raceId: this.state.currentRaceId});
+      this._handleRaceCompletion();
     }
   },
 
@@ -58,7 +59,6 @@ const RacePage = React.createClass({
       this.setState({
         currentStatus: status,
       });
-      console.log(typeof this._raceMarshalDidUpdate, this._raceMarshalDidUpdate);
       RaceMarshalStore.removeChangeListener(this._raceMarshalDidUpdate);
     }
   },
@@ -67,6 +67,11 @@ const RacePage = React.createClass({
     this.setState({
       progress: this.state.progress + 1,
     });
+  },
+
+  _handleRaceCompletion () {
+    completedRace(this.state.currentRaceId, this.state.user.get("id"), "some time");
+    this.transitionTo("result", null, {raceId: this.state.currentRaceId});
   },
 
   render () {
