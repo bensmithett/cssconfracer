@@ -15,9 +15,21 @@ const RacePage = React.createClass({
     createStoreMixin(UserStore, RaceMarshalStore),
   ],
 
+  componentWillMount () {
+    // We only care about race ID you hit the page with, not subsequent updates from the Marshal
+    this.setState({
+      currentRaceId: RaceMarshalStore.getRaceId(),
+      progress: 0,
+      
+      // TODO: This will need to be an object that starts timing upon race start & has a getFinalTime() method we can grab upon completion
+      // Or maybe just subtract 2 times that you get from MarshalUtils...
+      timer: null,
+    });
+  },
+
   componentWillUpdate (nextProps, nextState) {
     if (nextState.progress > 10) {
-      this.transitionTo("result");
+      this.transitionTo("result", null, {raceId: this.state.currentRaceId});
     }
   },
 
@@ -27,7 +39,6 @@ const RacePage = React.createClass({
       user: UserStore.get(signedInUser),
       marshalStatus: RaceMarshalStore.getStatus(),
       marshalRaceId: RaceMarshalStore.getRaceId(),
-      progress: 0,
     };
   },
 
@@ -42,8 +53,9 @@ const RacePage = React.createClass({
       <div>
         <h1>Now Racing!</h1>
         <p>Username: {this.state.user.get("username")}</p>
-        <p>Status: {this.state.marshalStatus}</p>
-        <p>Race ID: {this.state.marshalRaceId}</p>
+        <p>Marshal Status: {this.state.marshalStatus}</p>
+        <p>Marshal Race ID: {this.state.marshalRaceId}</p>
+        <p>This Race ID: {this.state.currentRaceId}</p>
         <p>Progress: {this.state.progress}</p>
 
         <button onClick={this._increment}>Go</button>
