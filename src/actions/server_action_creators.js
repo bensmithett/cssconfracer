@@ -9,11 +9,11 @@ module.exports = {
     });
   },
 
-  receiveRace (raceId, raceResponse) {
+  receiveRace (raceId, raceSnapshot) {
     dispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_RACE,
       raceId: raceId,
-      raceResults: "santized: " + raceResponse,
+      raceResults: raceSnapshot,
     });
   },
 };

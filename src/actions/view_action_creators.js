@@ -16,6 +16,10 @@ module.exports = {
     Api.createUser("starter-username");
   },
 
+  registerRaceParticipation (raceId, userId, username) {
+    Api.registerRaceParticipation(raceId, userId, username);
+  },
+
   completedRace (raceId, userId, time) {
     Api.saveRaceResult(raceId, userId, time);
   },

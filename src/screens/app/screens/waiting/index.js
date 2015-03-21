@@ -1,11 +1,16 @@
 import React from "react";
-import createStoreMixin from "mixins/create_store_mixin";
+
 import UserStore from "stores/user_store";
 import AuthStore from "stores/auth_store";
 import RaceMarshalStore from "stores/race_marshal_store";
+
+import createStoreMixin from "mixins/create_store_mixin";
 import AuthMixin from "mixins/auth_mixin";
 import {Navigation as NavigationMixin} from "react-router";
+
 import {MarshalStatus} from "config/constants";
+
+import {registerRaceParticipation} from "actions/view_action_creators";
 
 const WaitingPage = React.createClass({
   mixins: [
@@ -14,9 +19,21 @@ const WaitingPage = React.createClass({
     NavigationMixin,
   ],
 
+  componentDidMount () {
+    if (this.state.status === MarshalStatus.WAITING) {
+      registerRaceParticipation(this.state.raceId, this.state.user.get("id"), this.state.user.get("username"));
+    }
+  },
+
   componentWillUpdate (nextProps, nextState) {
     if (this.state.status === MarshalStatus.WAITING && nextState.status === MarshalStatus.ENGINE_STARTED) {
       this.transitionTo("race");
+    }
+  },
+
+  componentDidUpdate (prevProps, prevState) {
+    if (prevState.status === MarshalStatus.RACING && this.state.status === MarshalStatus.WAITING) {
+      registerRaceParticipation(this.state.raceId, this.state.user.get("id"), this.state.user.get("username"));
     }
   },
 

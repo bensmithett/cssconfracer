@@ -1,4 +1,4 @@
-import {createUserSuccess, receiveRace} from "actions/server_action_creators";
+import Actions from "actions/server_action_creators";
 
 const fb = new Firebase("https://cssconfracer.firebaseio.com/");
 const fbUsers = fb.child("users");
@@ -8,16 +8,16 @@ const ApiUtils = {
   createUser (username) {
     const localUser = localStorage.getItem("user");
     if (localUser) {
-      createUserSuccess(JSON.parse(localUser));
+      Actions.createUserSuccess(JSON.parse(localUser));
     } else {
       let newUser = {username};
       newUser.id = fbUsers.push(newUser).key();
       localStorage.setItem("user", JSON.stringify(newUser));
-      createUserSuccess(newUser);
+      Actions.createUserSuccess(newUser);
     }
   },
 
-  setUsername(userId, username) {
+  setUsername (userId, username) {
     const fbUser = fbUsers.child(userId);
     fbUser.update({username});
     localStorage.setItem("user", JSON.stringify({
@@ -26,11 +26,23 @@ const ApiUtils = {
     }));
   },
 
+  registerRaceParticipation (raceId, userId, username) {
+    const fbUser = fbRaces.child(raceId).child(userId);
+    fbUser.set({
+      username,
+      progress: 0,
+      finalTime: null,
+    });
+    fbRaces.child(raceId).on("value", (snapshot) => {
+      Actions.receiveRace(raceId, snapshot.val());
+    });
+  },
+
   saveRaceResult (raceId, userId, time) {
     console.log("Saving...", raceId, userId, time);
     const raceResponse = "some response";
     setTimeout(function () {
-      receiveRace(raceId, raceResponse);
+      Actions.receiveRace(raceId, raceResponse);
     }, 2000);
   },
 };
