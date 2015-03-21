@@ -17,7 +17,7 @@ module.exports = React.createClass({
           </ul>
         </header>
 
-        <RouteHandler />
+        <RouteHandler {...this.props} />
       </div>
     );
   },
