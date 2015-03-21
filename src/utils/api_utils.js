@@ -1,4 +1,4 @@
-import {createUserSuccess} from "actions/server_action_creators";
+import {createUserSuccess, receiveRace} from "actions/server_action_creators";
 
 const ApiUtils = {
   createUser () {
@@ -10,6 +10,10 @@ const ApiUtils = {
 
   saveRaceResult (raceId, userId, time) {
     console.log("Saving...", raceId, userId, time);
+    const raceResponse = "some response";
+    setTimeout(function () {
+      receiveRace(raceId, raceResponse);
+    }, 2000);
   },
 };
 

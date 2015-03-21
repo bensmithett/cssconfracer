@@ -11,6 +11,7 @@ const Constants = {
     CREATE_USER_SUCCESS: null,
     SET_USERNAME: null,
     RACE_STATUS_UPDATE: null,
+    RECEIVE_RACE: null,
   }),
 
   EventTypes: keymirror({
