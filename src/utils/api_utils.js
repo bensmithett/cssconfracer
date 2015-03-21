@@ -1,11 +1,29 @@
 import {createUserSuccess, receiveRace} from "actions/server_action_creators";
 
+const fb = new Firebase("https://cssconfracer.firebaseio.com/");
+const fbUsers = fb.child("users");
+const fbRaces = fb.child("races");
+
 const ApiUtils = {
-  createUser () {
-    // create a new user with a blank username on firebase
-    setTimeout(function () {
-      createUserSuccess(1);
-    }, 2000);
+  createUser (username) {
+    const localUser = localStorage.getItem("user");
+    if (localUser) {
+      createUserSuccess(JSON.parse(localUser));
+    } else {
+      let newUser = {username};
+      newUser.id = fbUsers.push(newUser).key();
+      localStorage.setItem("user", JSON.stringify(newUser));
+      createUserSuccess(newUser);
+    }
+  },
+
+  setUsername(userId, username) {
+    const fbUser = fbUsers.child(userId);
+    fbUser.update({username});
+    localStorage.setItem("user", JSON.stringify({
+      id: userId,
+      username,
+    }));
   },
 
   saveRaceResult (raceId, userId, time) {

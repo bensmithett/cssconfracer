@@ -2,10 +2,10 @@ import dispatcher from "dispatcher";
 import {ActionTypes} from "config/constants";
 
 module.exports = {
-  createUserSuccess (userId) {
+  createUserSuccess (user) {
     dispatcher.handleServerAction({
       type: ActionTypes.CREATE_USER_SUCCESS,
-      userId: userId,
+      user: user,
     });
   },
 

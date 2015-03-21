@@ -11,10 +11,7 @@ const ActionHandlers = {
   },
 
   [ActionTypes.CREATE_USER_SUCCESS] (action) {
-    users = users.set(action.userId, Immutable.Map({
-      "id": action.userId,
-      "username": "default-username",
-    }));
+    users = users.set(action.user.id, Immutable.Map(action.user));
   },
 
   all () {

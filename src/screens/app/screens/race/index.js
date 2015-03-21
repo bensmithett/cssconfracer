@@ -63,6 +63,7 @@ const RacePage = React.createClass({
       });
       start();
       RaceMarshalStore.removeChangeListener(this._raceMarshalDidUpdate);
+      // TODO: Also need to remove this callback when this component unmounts
     }
   },
 

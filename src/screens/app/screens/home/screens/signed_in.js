@@ -1,10 +1,10 @@
 import React from "react";
-import {setUsername} from "actions/view_action_creators";
+import {updatedUsername} from "actions/view_action_creators";
 import {Link} from "react-router";
 
 const SignedInHomepage = React.createClass({
   _handleUsernameChange (event) {
-    setUsername(this.props.user.get("id"), event.target.value);
+    updatedUsername(this.props.user.get("id"), event.target.value);
   },
 
   render () {
