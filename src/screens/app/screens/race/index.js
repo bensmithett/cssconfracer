@@ -12,6 +12,8 @@ import createStoreMixin from "mixins/create_store_mixin";
 import AuthMixin from "mixins/auth_mixin";
 import {Navigation as NavigationMixin} from "react-router";
 
+import {start, stop} from "utils/stopwatch_utils";
+
 const RacePage = React.createClass({
   mixins: [
     AuthMixin,
@@ -59,6 +61,7 @@ const RacePage = React.createClass({
       this.setState({
         currentStatus: status,
       });
+      start();
       RaceMarshalStore.removeChangeListener(this._raceMarshalDidUpdate);
     }
   },
@@ -70,7 +73,7 @@ const RacePage = React.createClass({
   },
 
   _handleRaceCompletion () {
-    completedRace(this.state.currentRaceId, this.state.user.get("id"), "some time");
+    completedRace(this.state.currentRaceId, this.state.user.get("id"), stop());
     this.transitionTo("result", null, {raceId: this.state.currentRaceId});
   },
 

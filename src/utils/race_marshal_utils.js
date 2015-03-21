@@ -49,4 +49,3 @@ const watch = function watch () {
 export function start () {
   watch();
 };
-
