@@ -1,5 +1,7 @@
 import React from "react";
 
+import {MarshalStatus} from "config/constants";
+
 import UserStore from "stores/user_store";
 import AuthStore from "stores/auth_store";
 import RaceMarshalStore from "stores/race_marshal_store";
@@ -18,6 +20,7 @@ const RacePage = React.createClass({
   componentWillMount () {
     // We only care about race ID you hit the page with, not subsequent updates from the Marshal
     this.setState({
+      currentStatus: RaceMarshalStore.getStatus(),
       currentRaceId: RaceMarshalStore.getRaceId(),
       progress: 0,
       
@@ -25,6 +28,10 @@ const RacePage = React.createClass({
       // Or maybe just subtract 2 times that you get from MarshalUtils...
       timer: null,
     });
+  },
+
+  componentDidMount () {
+    RaceMarshalStore.addChangeListener(this._raceMarshalDidUpdate);
   },
 
   componentWillUpdate (nextProps, nextState) {
@@ -35,11 +42,25 @@ const RacePage = React.createClass({
 
   getStateFromStores (props) {
     const signedInUser = AuthStore.getSignedInUser();
+
     return {
       user: UserStore.get(signedInUser),
       marshalStatus: RaceMarshalStore.getStatus(),
       marshalRaceId: RaceMarshalStore.getRaceId(),
     };
+  },
+
+  _raceMarshalDidUpdate () {
+    // We only care about the first transition to RACING, we don't want to go back to ENGINE_STARTED in this race
+    // just because the marshal did for the next race
+    const status = RaceMarshalStore.getStatus();
+    if (this.state.currentStatus === MarshalStatus.ENGINE_STARTED && status === MarshalStatus.RACING) {
+      this.setState({
+        currentStatus: status,
+      });
+      console.log(typeof this._raceMarshalDidUpdate, this._raceMarshalDidUpdate);
+      RaceMarshalStore.removeChangeListener(this._raceMarshalDidUpdate);
+    }
   },
 
   _increment () {
@@ -55,7 +76,8 @@ const RacePage = React.createClass({
         <p>Username: {this.state.user.get("username")}</p>
         <p>Marshal Status: {this.state.marshalStatus}</p>
         <p>Marshal Race ID: {this.state.marshalRaceId}</p>
-        <p>This Race ID: {this.state.currentRaceId}</p>
+        <p>Current Status: {this.state.currentStatus}</p>
+        <p>Current Race ID: {this.state.currentRaceId}</p>
         <p>Progress: {this.state.progress}</p>
 
         <button onClick={this._increment}>Go</button>
