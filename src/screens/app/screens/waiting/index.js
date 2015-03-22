@@ -50,7 +50,7 @@ const WaitingPage = React.createClass({
       username: UserStore.get(userId),
       raceId: raceId,
       status: RaceMarshalStore.getStatus(),
-      raceResults: raceId ? RaceStore.getRace(raceId) : null,
+      raceResults: RaceStore.getRace(raceId),
     };
   },
 
@@ -66,7 +66,7 @@ const WaitingPage = React.createClass({
           this.state.raceResults ?
           <ParticipantList participants={this.state.raceResults} />
           :
-          "Loading..."
+          "Fetching current race participants if there are any..."
         }
       </div>
     );

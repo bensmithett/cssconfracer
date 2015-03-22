@@ -99,7 +99,10 @@ const RacePage = React.createClass({
         <p>Current Race ID: {this.state.currentRaceId}</p>
         <p>Progress: {this.state.progress}</p>
 
-        <button onClick={this._increment}>Go</button>
+        {
+          this.state.currentStatus === MarshalStatus.RACING ?
+          <button onClick={this._increment}>Go</button> : null
+        }
       </div>
     );
   },

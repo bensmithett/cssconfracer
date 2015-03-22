@@ -33,7 +33,7 @@ const HomePage = React.createClass({
       <div>
         <h1>Home</h1>
         {
-          this.state.user ?
+          this.state.user !== null ?
           <SignedIn user={this.state.user} />
           :
           <SignedOut />

@@ -15,9 +15,25 @@ const ResultPage = React.createClass({
     createStoreMixin(UserStore, RaceStore),
   ],
 
+  componentWillMount () {
+    this.setState({
+      // An artificial delay that should ensure the winner doesn't change too much due to network lag
+      resultsTallied: false,
+    });
+  },
+
+  componentDidMount () {
+    setTimeout(() => {
+      this.setState({
+        resultsTallied: true,
+      });
+    }, 3000);
+  },
+
   getStateFromStores (props) {
     const userId = AuthStore.getSignedInUser();
     return {
+      userId: userId,
       username: UserStore.get(userId),
       raceResults: RaceStore.getRace(this.props.query.raceId),
     };
@@ -29,13 +45,14 @@ const ResultPage = React.createClass({
         <h1>Results</h1>
         <p>You are {this.state.username}</p>
         <p>Results for race ID: {this.props.query.raceId}</p>
+        <p>Your time: {this.state.raceResults.get(this.state.userId).get("time")}</p>
 
         <div>
           {
-            this.state.raceResults ?
+            this.state.raceResults && this.state.resultsTallied ?
             <ParticipantList participants={this.state.raceResults} />
             :
-            "Loading results..."
+            "Tallying results..."
           }
         </div>
       </div>
