@@ -7,7 +7,7 @@ let store = Immutable.Map({});
 
 const ActionHandlers = {
   [ActionTypes.RECEIVE_RACE] (action) {
-    store = store.set(action.raceId, action.raceResults);
+    store = store.set(action.raceId, Immutable.fromJS(action.raceResults));
   },
 
   all () {

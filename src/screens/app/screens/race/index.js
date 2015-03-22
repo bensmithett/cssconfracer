@@ -44,10 +44,11 @@ const RacePage = React.createClass({
   },
 
   getStateFromStores (props) {
-    const signedInUser = AuthStore.getSignedInUser();
+    const userId = AuthStore.getSignedInUser();
 
     return {
-      user: UserStore.get(signedInUser),
+      userId: userId,
+      username: UserStore.get(userId),
       marshalStatus: RaceMarshalStore.getStatus(),
       marshalRaceId: RaceMarshalStore.getRaceId(),
     };
@@ -74,7 +75,7 @@ const RacePage = React.createClass({
   },
 
   _handleRaceCompletion () {
-    completedRace(this.state.currentRaceId, this.state.user.get("id"), stop());
+    completedRace(this.state.currentRaceId, this.state.userId, stop());
     this.transitionTo("result", null, {raceId: this.state.currentRaceId});
   },
 
@@ -82,7 +83,7 @@ const RacePage = React.createClass({
     return (
       <div>
         <h1>Now Racing!</h1>
-        <p>Username: {this.state.user.get("username")}</p>
+        <p>Username: {this.state.username}</p>
         <p>Marshal Status: {this.state.marshalStatus}</p>
         <p>Marshal Race ID: {this.state.marshalRaceId}</p>
         <p>Current Status: {this.state.currentStatus}</p>

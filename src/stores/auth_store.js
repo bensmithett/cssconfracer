@@ -9,7 +9,7 @@ let store = Immutable.Map({
 
 const ActionHandlers = {
   [ActionTypes.CREATE_USER_SUCCESS] (action) {
-    store = store.set("signedInUser", action.user.id);
+    store = store.set("signedInUser", action.userId);
   },
 
   all () {

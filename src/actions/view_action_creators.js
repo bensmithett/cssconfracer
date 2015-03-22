@@ -23,4 +23,8 @@ module.exports = {
   completedRace (raceId, userId, time) {
     Api.saveRaceResult(raceId, userId, time);
   },
+
+  unauth () {
+    Api.unauth();
+  },
 };

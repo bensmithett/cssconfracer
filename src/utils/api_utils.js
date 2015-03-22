@@ -5,25 +5,29 @@ const fbUsers = fb.child("users");
 const fbRaces = fb.child("races");
 
 const ApiUtils = {
-  createUser (username) {
-    const localUser = localStorage.getItem("user");
-    if (localUser) {
-      Actions.createUserSuccess(JSON.parse(localUser));
+  createUser (initialUsername) {
+    const existingAuth = fb.getAuth();
+    let username = localStorage.getItem("username");
+
+    if (existingAuth) {
+      Actions.createUserSuccess(existingAuth.uid, username);
     } else {
-      let newUser = {username};
-      newUser.id = fbUsers.push(newUser).key();
-      localStorage.setItem("user", JSON.stringify(newUser));
-      Actions.createUserSuccess(newUser);
+      fb.authAnonymously((err, authData) => {
+        if (err) {
+          console.log("Firebase user auth failed...");
+        } else {
+          if (!username) {
+            username = initialUsername;
+            localStorage.setItem("username", username);
+          }
+          Actions.createUserSuccess(authData.uid, username);
+        }
+      });
     }
   },
 
   setUsername (userId, username) {
-    const fbUser = fbUsers.child(userId);
-    fbUser.update({username});
-    localStorage.setItem("user", JSON.stringify({
-      id: userId,
-      username,
-    }));
+    localStorage.setItem("username", username);
   },
 
   registerRaceParticipation (raceId, userId, username) {
@@ -44,6 +48,13 @@ const ApiUtils = {
     setTimeout(function () {
       Actions.receiveRace(raceId, raceResponse);
     }, 2000);
+  },
+
+  unauth () {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("username");
+    localStorage.removeItem("user");
+    fb.unauth();
   },
 };
 

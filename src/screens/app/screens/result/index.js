@@ -12,9 +12,9 @@ const ResultPage = React.createClass({
   ],
 
   getStateFromStores (props) {
-    const signedInUser = AuthStore.getSignedInUser();
+    const userId = AuthStore.getSignedInUser();
     return {
-      user: UserStore.get(signedInUser),
+      username: UserStore.get(userId),
       raceResults: RaceStore.getRace(this.props.query.raceId),
     };
   },
@@ -23,7 +23,7 @@ const ResultPage = React.createClass({
     return (
       <div>
         <h1>Results</h1>
-        <p>You are {this.state.user.get("username")}</p>
+        <p>You are {this.state.username}</p>
         <p>Results for race ID: {this.props.query.raceId}</p>
         <p>Results: {this.state.raceResults || "Loading results..."}</p>
       </div>

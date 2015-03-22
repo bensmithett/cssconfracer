@@ -7,11 +7,11 @@ let users = Immutable.Map({});
 
 const ActionHandlers = {
   [ActionTypes.SET_USERNAME] (action) {
-    users = users.setIn([action.userId, "username"], action.username);
+    users = users.set(action.userId, action.username);
   },
 
   [ActionTypes.CREATE_USER_SUCCESS] (action) {
-    users = users.set(action.user.id, Immutable.Map(action.user));
+    users = users.set(action.userId, action.username);
   },
 
   all () {
