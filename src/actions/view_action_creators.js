@@ -20,6 +20,10 @@ module.exports = {
     Api.registerRaceParticipation(raceId, userId, username);
   },
 
+  requestCurrentRaceResults (raceId) {
+    Api.fetchRace(raceId);
+  },
+
   completedRace (raceId, userId, time) {
     Api.saveRaceResult(raceId, userId, time);
   },

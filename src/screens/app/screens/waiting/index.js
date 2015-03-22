@@ -11,7 +11,7 @@ import {Navigation as NavigationMixin} from "react-router";
 
 import {MarshalStatus} from "config/constants";
 
-import {registerRaceParticipation} from "actions/view_action_creators";
+import {registerRaceParticipation, requestCurrentRaceResults} from "actions/view_action_creators";
 
 import ParticipantList from "./components/participant_list";
 
@@ -25,6 +25,8 @@ const WaitingPage = React.createClass({
   componentDidMount () {
     if (this.state.status === MarshalStatus.WAITING) {
       registerRaceParticipation(this.state.raceId, this.state.userId, this.state.username);
+    } else {
+      requestCurrentRaceResults(this.state.raceId);
     }
   },
 

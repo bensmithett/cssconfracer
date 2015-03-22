@@ -30,6 +30,12 @@ const ApiUtils = {
     localStorage.setItem("username", username);
   },
 
+  fetchRace (raceId) {
+    fbRaces.child(raceId).on("value", (snapshot) => {
+      Actions.receiveRace(raceId, snapshot.val());
+    });
+  },
+
   registerRaceParticipation (raceId, userId, username) {
     const fbUser = fbRaces.child(raceId).child(userId);
     fbUser.set({
