@@ -9,21 +9,29 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "autoprefixer-loader": "^1.2.0",
     "babel-core": "^4.7.12",
     "babel-loader": "^4.1.0",
+    "css-loader": "^0.9.1",
+    "file-loader": "^0.8.1",
     "firebase": "^2.2.3",
     "flux": "^2.0.1",
     "immutable": "^3.6.4",
     "keymirror": "^0.1.1",
     "moment": "^2.9.0",
+    "normalize.css": "^3.0.2",
     "object-assign": "^2.0.0",
     "react": "^0.12.2",
     "react-hot-loader": "^1.2.3",
     "react-router": "^0.12.4",
+    "sass-loader": "^0.5.0",
+    "style-loader": "^0.8.3",
+    "url-loader": "^0.5.5",
     "webpack": "^1.7.3"
   },
   "devDependencies": {
     "react-hot-loader": "^1.1.4",
+    "svgo": "^0.5.0",
     "webpack-dev-server": "^1.7.0"
   }
 }
