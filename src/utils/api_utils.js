@@ -49,11 +49,10 @@ const ApiUtils = {
   },
 
   saveRaceResult (raceId, userId, time) {
-    console.log("Saving...", raceId, userId, time);
-    const raceResponse = "some response";
-    setTimeout(function () {
-      Actions.receiveRace(raceId, raceResponse);
-    }, 2000);
+    fbRaces.child(raceId).child(userId).update({
+      time: time,
+      progress: 11,
+    });
   },
 
   unauth () {

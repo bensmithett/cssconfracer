@@ -1,9 +1,13 @@
 import React from "react";
-import createStoreMixin from "mixins/create_store_mixin";
+
 import UserStore from "stores/user_store";
 import AuthStore from "stores/auth_store";
 import RaceStore from "stores/race_store";
+
 import AuthMixin from "mixins/auth_mixin";
+import createStoreMixin from "mixins/create_store_mixin";
+
+import ParticipantList from "./components/participant_list";
 
 const ResultPage = React.createClass({
   mixins: [
@@ -25,7 +29,15 @@ const ResultPage = React.createClass({
         <h1>Results</h1>
         <p>You are {this.state.username}</p>
         <p>Results for race ID: {this.props.query.raceId}</p>
-        <p>Results: {this.state.raceResults || "Loading results..."}</p>
+
+        <div>
+          {
+            this.state.raceResults ?
+            <ParticipantList participants={this.state.raceResults} />
+            :
+            "Loading results..."
+          }
+        </div>
       </div>
     );
   },
