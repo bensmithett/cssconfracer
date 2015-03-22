@@ -48,6 +48,12 @@ const ApiUtils = {
     });
   },
 
+  saveProgress (raceId, userId, progress) {
+    fbRaces.child(raceId).child(userId).update({
+      progress: progress,
+    });
+  },
+
   saveRaceResult (raceId, userId, time) {
     fbRaces.child(raceId).child(userId).update({
       time: time,

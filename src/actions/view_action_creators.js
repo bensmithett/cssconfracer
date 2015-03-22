@@ -24,6 +24,10 @@ module.exports = {
     Api.fetchRace(raceId);
   },
 
+  progressed (raceId, userId, progress) {
+    Api.saveProgress(raceId, userId, progress);
+  },
+
   completedRace (raceId, userId, time) {
     Api.saveRaceResult(raceId, userId, time);
   },

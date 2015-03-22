@@ -2,11 +2,12 @@ import React from "react";
 
 import {MarshalStatus} from "config/constants";
 
-import {completedRace} from "actions/view_action_creators";
+import {completedRace, progressed} from "actions/view_action_creators";
 
 import UserStore from "stores/user_store";
 import AuthStore from "stores/auth_store";
 import RaceMarshalStore from "stores/race_marshal_store";
+import RaceStore from "stores/race_store";
 
 import createStoreMixin from "mixins/create_store_mixin";
 import AuthMixin from "mixins/auth_mixin";
@@ -43,6 +44,12 @@ const RacePage = React.createClass({
     }
   },
 
+  componentDidUpdate (prevProps, prevState) {
+    if (prevState.progress !== this.state.progress) {
+      progressed(this.state.currentRaceId, this.state.userId, this.state.progress);
+    }
+  },
+
   getStateFromStores (props) {
     const userId = AuthStore.getSignedInUser();
 
@@ -69,6 +76,8 @@ const RacePage = React.createClass({
   },
 
   _increment () {
+    // Instead of reading the current user's progress from the shared Race store, treat this component's state as the source
+    // of truth for progress & just broadcast it to other users.
     this.setState({
       progress: this.state.progress + 1,
     });
