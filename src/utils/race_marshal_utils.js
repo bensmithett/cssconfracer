@@ -34,7 +34,7 @@ const getRaceId = function getRaceId (time) {
   return time.format("YYYY-MM-DD-HH-mm");
 };
 
-const getNextRaceId = function getNextRaceId (time) {
+const getNextRaceMoment = function getNextRaceMoment (time) {
   time = time.clone();
 
   if (time.minutes() % 2) {
@@ -43,8 +43,23 @@ const getNextRaceId = function getNextRaceId (time) {
     time.add(2, "minutes");
   }
 
-  return time.format("YYYY-MM-DD-HH-mm");
+  time.seconds(0);
+
+  return time;
 }
+
+const getNextRaceId = function getNextRaceId (time) {
+  return getNextRaceMoment(time).format("YYYY-MM-DD-HH-mm");
+};
+
+const zeroify = function zeroify (number) {
+  return ("0" + number).slice(-2);
+};
+
+const timeUntilNextRace = function timeUntilNextRace (time) {
+  const duration = moment.duration(getNextRaceMoment(time).diff(time));
+  return zeroify(duration.minutes()) + ":" + zeroify(duration.seconds());
+};
 
 const watch = function watch () {
   const now = moment.utc();
@@ -52,8 +67,9 @@ const watch = function watch () {
 
   if (status !== newStatus) {
     status = newStatus;
-    Actions.raceStatusUpdate(getRaceId(now), status, getNextRaceId(now));
   }
+  
+  Actions.raceStatusUpdate(getRaceId(now), status, getNextRaceId(now), timeUntilNextRace(now));
 
   setTimeout(watch, 1000);
 };

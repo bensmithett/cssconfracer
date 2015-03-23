@@ -4,23 +4,21 @@ const ParticipantList = React.createClass({
   render () {
     if (this.props.participants.size) {
       return (
-        <ul>
+        <div className="u-align--center">
           {
             this.props.participants.map((participant, key) => {
               return (
-                <li key={key}>
-                  Name: {participant.get("username")}
-                  Progress: {participant.get("progress")}
-                </li>
+                <p className="p" key={key}>
+                  {participant.get("username")}
+                </p>
               );
             }).toArray()
           }
-        </ul>
+        </div>
       );
     } else {
-      return <div>"Nobody in this race!"</div>;
+      return <div>Waiting for players to join...</div>;
     }
-    
   }
 });
 

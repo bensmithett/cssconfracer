@@ -12,6 +12,7 @@ let raceMarshal = Immutable.Map({
   raceId: null,
   status: null,
   nextRaceId: null,
+  timeUntilNextRace: null,
 });
 
 const ActionHandlers = {
@@ -20,6 +21,7 @@ const ActionHandlers = {
       raceId: action.raceId,
       status: action.status,
       nextRaceId: action.nextRaceId,
+      timeUntilNextRace: action.timeUntilNextRace,
     });
   },
 
@@ -41,6 +43,10 @@ const RaceMarshalStore = createStore({
 
   getNextRaceId () {
     return raceMarshal.get("nextRaceId");
+  },
+
+  getTimeUntilNextRace () {
+    return raceMarshal.get("timeUntilNextRace");
   },
 });
 

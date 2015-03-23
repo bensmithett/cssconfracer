@@ -23,11 +23,7 @@ const WaitingPage = React.createClass({
   ],
 
   componentDidMount () {
-    if (this.state.status === MarshalStatus.WAITING) {
-      registerRaceParticipation(this.state.raceId, this.state.userId, this.state.username);
-    } else {
-      requestCurrentRaceResults(this.state.raceId);
-    }
+    registerRaceParticipation(this.state.nextRaceId, this.state.userId, this.state.username);
   },
 
   componentWillUpdate (nextProps, nextState) {
@@ -36,43 +32,32 @@ const WaitingPage = React.createClass({
     }
   },
 
-  componentDidUpdate (prevProps, prevState) {
-    if (prevState.status === MarshalStatus.RACING && this.state.status === MarshalStatus.WAITING) {
-      registerRaceParticipation(this.state.raceId, this.state.userId, this.state.username);
-    }
-  },
-
   getStateFromStores (props) {
     const userId = AuthStore.getSignedInUser();
-    const raceId = RaceMarshalStore.getRaceId();
     const nextRaceId = RaceMarshalStore.getNextRaceId();
+
     return {
       userId: userId,
       username: UserStore.get(userId),
-      raceId: raceId,
       nextRaceId: nextRaceId,
+      timeUntilNextRace: RaceMarshalStore.getTimeUntilNextRace(),
       status: RaceMarshalStore.getStatus(),
-      raceResults: RaceStore.getRace(raceId),
+      participants: RaceStore.getRace(nextRaceId),
     };
   },
 
   render () {
     return (
       <div>
-        <p className="p u-align--center u-pad--top-l">
-          Hi {this.state.username}!
-        </p>
-        <h1 className="h2 u-align--center">Next Race In</h1>
-        <p>Next... {this.state.nextRaceId}</p>
-        <p>You are {this.state.username}</p>
-        <p>{this.state.status === MarshalStatus.WAITING ? "Waiting for players to join..." : "Race in progress..."}</p>
+        <h1 className="h4 u-align--center u-pad--top-l">Next race</h1>
+        <p className="h1 u-align--center">{this.state.timeUntilNextRace}</p>
 
-        <h2>Participants in {this.state.raceId}</h2>
+        <h2 className="h3 u-align--center">The Lineup...</h2>
         {
-          this.state.raceResults ?
-          <ParticipantList participants={this.state.raceResults} />
+          this.state.participants ?
+          <ParticipantList participants={this.state.participants} userId={this.state.userId} />
           :
-          "Fetching current race participants if there are any..."
+          <p className="p u-align--center">Loading lineup...</p>
         }
       </div>
     );
