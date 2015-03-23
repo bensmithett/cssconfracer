@@ -1,9 +1,12 @@
 import React from "react";
 import UserStore from "stores/user_store";
 import AuthStore from "stores/auth_store";
-import createStoreMixin from "mixins/create_store_mixin";
+
+import Top from "./components/top";
 import SignedIn from "./screens/signed_in";
 import SignedOut from "./screens/signed_out";
+
+import createStoreMixin from "mixins/create_store_mixin";
 import {requestUserCreation} from "actions/view_action_creators";
 import {start} from "utils/race_marshal_utils";
 
@@ -30,8 +33,8 @@ const HomePage = React.createClass({
     const Page = this.state.user ? SignedIn : SignedOut;
 
     return (
-      <div>
-        <h1>Home</h1>
+      <div className="homepage">
+        <Top />
         {
           this.state.user !== null ?
           <SignedIn user={this.state.user} />

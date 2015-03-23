@@ -5,17 +5,14 @@ import Debug from "./components/debug";
 
 import UserStore from "stores/user_store";
 
-import img from "img/logo";
-
 const debug = false;
 
 module.exports = React.createClass({
   render () {
     return (
-      <div>
+      <div className="container -constrain-width">
         {debug ? <Debug /> : null}
 
-        <img src={img} width="100" />
         <RouteHandler {...this.props} />
       </div>
     );

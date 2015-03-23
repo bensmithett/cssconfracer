@@ -24,18 +24,28 @@ const SignedInHomepage = React.createClass({
 
   render () {
     return (
-      <div>        
-        <input
-          value={this.props.user}
-          onChange={this._handleUsernameChange}
-        />
+      <div className="container -pad -really-constrain-width">
+        <p className="p u-align--center">Who are you?</p>
+        <p className="p">
+          <input
+            className="input"
+            value={this.props.user}
+            onChange={this._handleUsernameChange}
+          />
+        </p>
 
-        {
-          this.state.valid ?
-          <Link to="waiting">Race!</Link>
-          :
-          "Invalid username"
-        }
+        <p className="p u-margin--bottom-l">
+          {
+            this.state.valid ?
+            <Link to="waiting" className="btn u-font-size--l">
+              Go Race!
+            </Link>
+            :
+            <button disabled={true} className="btn -is-disabled u-font-size--l">
+              Invalid
+            </button>
+          }
+        </p>
       </div>
     );
   },

@@ -1,7 +1,13 @@
-@import "css/config/font_stacks"
+@import "css/config/colors"
 
 .container
-  font-family: $silkscreen
-  height: 100vh
-  position: relative
-  width: 100vw
+  margin: 0 auto
+
+  &.-pad
+    padding: 0 10px
+
+  &.-constrain-width
+    max-width: 600px
+
+  &.-really-constrain-width
+    max-width: 250px
