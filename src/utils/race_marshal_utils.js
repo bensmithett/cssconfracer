@@ -52,13 +52,13 @@ const getNextRaceId = function getNextRaceId (time) {
   return getNextRaceMoment(time).format("YYYY-MM-DD-HH-mm");
 };
 
-const zeroify = function zeroify (number) {
-  return ("0" + number).slice(-2);
+const zeroify = function zeroify (number, places) {
+  return ("00" + number).slice(-places);
 };
 
 const timeUntilNextRace = function timeUntilNextRace (time) {
   const duration = moment.duration(getNextRaceMoment(time).diff(time));
-  return zeroify(duration.minutes()) + ":" + zeroify(duration.seconds());
+  return zeroify(duration.minutes(), 2) + ":" + zeroify(duration.seconds(), 2);
 };
 
 const watch = function watch () {
@@ -76,4 +76,9 @@ const watch = function watch () {
 
 export function start () {
   watch();
+};
+
+export function formatScore (milliseconds) {
+  const duration = moment.duration(milliseconds);
+  return zeroify(duration.minutes(), 2) + ":" + zeroify(duration.seconds(), 2) + "." + zeroify(duration.milliseconds(), 3);
 };
