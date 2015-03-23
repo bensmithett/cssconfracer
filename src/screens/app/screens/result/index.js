@@ -62,17 +62,19 @@ const ResultPage = React.createClass({
 
         {
           this.state.resultsTallied ?
-          <div className="grid -gutters u-margin--bottom-l">
-            <div className="grid__col -span-6">
-              <Link to="waiting" className="btn u-font-size--l">
-                Again!
-              </Link>
-            </div>
+          <div className="container -pad">
+            <div className="grid -gutters u-margin--bottom-l">
+              <div className="grid__col -span-6">
+                <Link to="waiting" className="btn u-font-size--l">
+                  Again!
+                </Link>
+              </div>
 
-            <div className="grid__col -span-6">
-              <Link to="/" className="btn u-font-size--l">
-                Home
-              </Link>
+              <div className="grid__col -span-6">
+                <Link to="/" className="btn u-font-size--l">
+                  Home
+                </Link>
+              </div>
             </div>
           </div>
           :

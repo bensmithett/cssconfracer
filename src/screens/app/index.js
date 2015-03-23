@@ -10,7 +10,7 @@ const debug = false;
 module.exports = React.createClass({
   render () {
     return (
-      <div className="container -constrain-width">
+      <div className="container -constrain-width -full-height">
         {debug ? <Debug /> : null}
 
         <RouteHandler {...this.props} />
