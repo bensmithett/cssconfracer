@@ -45,10 +45,12 @@ const WaitingPage = React.createClass({
   getStateFromStores (props) {
     const userId = AuthStore.getSignedInUser();
     const raceId = RaceMarshalStore.getRaceId();
+    const nextRaceId = RaceMarshalStore.getNextRaceId();
     return {
       userId: userId,
       username: UserStore.get(userId),
       raceId: raceId,
+      nextRaceId: nextRaceId,
       status: RaceMarshalStore.getStatus(),
       raceResults: RaceStore.getRace(raceId),
     };
@@ -57,7 +59,11 @@ const WaitingPage = React.createClass({
   render () {
     return (
       <div>
-        <h1>Waiting for next race</h1>
+        <p className="p u-align--center u-pad--top-l">
+          Hi {this.state.username}!
+        </p>
+        <h1 className="h2 u-align--center">Next Race In</h1>
+        <p>Next... {this.state.nextRaceId}</p>
         <p>You are {this.state.username}</p>
         <p>{this.state.status === MarshalStatus.WAITING ? "Waiting for players to join..." : "Race in progress..."}</p>
 

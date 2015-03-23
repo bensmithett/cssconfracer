@@ -42,7 +42,7 @@ const SignedInHomepage = React.createClass({
             </Link>
             :
             <button disabled={true} className="btn -is-disabled u-font-size--l">
-              Invalid
+              Nope
             </button>
           }
         </p>

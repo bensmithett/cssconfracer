@@ -11,6 +11,7 @@ import {createStore, createRegisteredCallback} from "utils/store_utils";
 let raceMarshal = Immutable.Map({
   raceId: null,
   status: null,
+  nextRaceId: null,
 });
 
 const ActionHandlers = {
@@ -18,6 +19,7 @@ const ActionHandlers = {
     raceMarshal = raceMarshal.merge({
       raceId: action.raceId,
       status: action.status,
+      nextRaceId: action.nextRaceId,
     });
   },
 
@@ -35,6 +37,10 @@ const RaceMarshalStore = createStore({
 
   getRaceId () {
     return raceMarshal.get("raceId");
+  },
+
+  getNextRaceId () {
+    return raceMarshal.get("nextRaceId");
   },
 });
 

@@ -16,7 +16,7 @@ const getStatus = function getStatus (time) {
   }
 };
 
-// Race IDs increment at the end of a RACING period. Here's
+// Race IDs increment at the end of a RACING period.
 
 // Time      Status           ID
 // ---------------------------------------------------
@@ -34,13 +34,25 @@ const getRaceId = function getRaceId (time) {
   return time.format("YYYY-MM-DD-HH-mm");
 };
 
+const getNextRaceId = function getNextRaceId (time) {
+  time = time.clone();
+
+  if (time.minutes() % 2) {
+    time.add(1, "minutes");
+  } else {
+    time.add(2, "minutes");
+  }
+
+  return time.format("YYYY-MM-DD-HH-mm");
+}
+
 const watch = function watch () {
   const now = moment.utc();
   const newStatus = getStatus(now);
 
   if (status !== newStatus) {
     status = newStatus;
-    Actions.raceStatusUpdate(getRaceId(now), status);
+    Actions.raceStatusUpdate(getRaceId(now), status, getNextRaceId(now));
   }
 
   setTimeout(watch, 1000);
