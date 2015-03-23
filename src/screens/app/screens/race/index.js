@@ -89,23 +89,50 @@ const RacePage = React.createClass({
   },
 
   render () {
-    return (
-      <div>
-        <h1>Now Racing!</h1>
-        <p>Username: {this.state.username}</p>
-        <p>Marshal Status: {this.state.marshalStatus}</p>
-        <p>Marshal Race ID: {this.state.marshalRaceId}</p>
-        <p>Current Status: {this.state.currentStatus}</p>
-        <p>Current Race ID: {this.state.currentRaceId}</p>
-        <p>Progress: {this.state.progress}</p>
+    const disabled = this.state.currentStatus === MarshalStatus.ENGINE_STARTED;
+    const top = 100 - (this.state.progress * 10);
 
-        {
-          this.state.currentStatus === MarshalStatus.RACING ?
-          <button onClick={this._increment}>Go</button> : null
-        }
+    return (
+      <div className="racing">
+        <div className="racing__track">
+          <div className="racing__car-path">
+            <div
+              className="racing__car"
+              style={{
+                top: top + "%",
+              }}
+            />
+          </div>
+
+        </div>
+
+        <div className="racing__grid">
+          start here, high as car
+        </div>
+
+        <div className="racing__btn">
+          <p className="p">
+            <button
+              className={"btn u-font-size--l" + (disabled ? " -is-disabled" : "")}
+              onClick={this._increment}
+              disabled={disabled}
+            >
+              Drive!
+            </button>
+          </p>
+        </div>
       </div>
     );
   },
 });
 
 export default RacePage;
+
+
+// <h1>Now Racing!</h1>
+// <p>Username: {this.state.username}</p>
+// <p>Marshal Status: {this.state.marshalStatus}</p>
+// <p>Marshal Race ID: {this.state.marshalRaceId}</p>
+// <p>Current Status: {this.state.currentStatus}</p>
+// <p>Current Race ID: {this.state.currentRaceId}</p>
+// <p>Progress: {this.state.progress}</p>

@@ -12,6 +12,7 @@ import "css/modules/input";
 import "css/modules/logo";
 import "css/modules/p";
 import "css/modules/page";
+import "css/modules/racing";
 import "css/modules/result";
 
 import "css/utilities/u_align";
