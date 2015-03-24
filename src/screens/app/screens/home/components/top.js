@@ -4,7 +4,7 @@ import img from "img/logo";
 const Top = React.createClass({
   render () {
     return (
-      <div className="homepage__top">
+      <div>
         <h1 className="logo">
           <img className="logo__img" src={img} width="150" alt="CSSConf" />
           <span className="logo__text">Racer</span>

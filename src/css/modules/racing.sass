@@ -1,33 +1,25 @@
 .racing
   display: flex
-  flex-direction: column
-  height: 100vh
+  height: 300px
+  position: relative
+
+.racing__grid
+  background: blue
+  float: left
+  height: 100%;
+  width: 70px
 
 .racing__track
   background: green
   flex: 1
-  position: relative
-
-.racing__car-path
-  background: goldenrod
   height: 100%
-  left: 50%
-  margin-left: -25px
-  position: absolute
-  width: 50px
+  position: relative
 
 .racing__car
   background: yellow
-  height: 60px
-  left: 0
+  height: 50px
   position: absolute
-  top: 100%
-  width: 50px
-
-.racing__grid
-  background: blue
-  flex: none
-  height: 70px
-
-.racing__btn
-  background: red
+  top: 50%
+  transform: translateY(-50%)
+  right: 100%
+  width: 60px

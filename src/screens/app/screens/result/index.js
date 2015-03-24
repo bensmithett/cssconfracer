@@ -43,8 +43,8 @@ const ResultPage = React.createClass({
 
   render () {
     return (
-      <div className="homepage u-pad--top-l">
-        <div className="homepage__top">
+      <div className="u-pad--top-l">
+        <div>
           <p className="p u-align--center">Your time</p>
           <p className="h1 u-align--center">
             {formatScore(this.state.raceResults.get(this.state.userId).get("time"))}
@@ -63,7 +63,7 @@ const ResultPage = React.createClass({
         {
           this.state.resultsTallied ?
           <div className="container -pad">
-            <div className="grid -gutters u-margin--bottom-l">
+            <div className="grid -gutters u-margin--bottom-l u-pad--top-l">
               <div className="grid__col -span-6">
                 <Link to="waiting" className="btn u-font-size--l">
                   Again!

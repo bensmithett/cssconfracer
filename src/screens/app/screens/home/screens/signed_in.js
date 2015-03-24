@@ -25,7 +25,7 @@ const SignedInHomepage = React.createClass({
   render () {
     return (
       <div className="container -pad -really-constrain-width">
-        <p className="p u-align--center">Who are you?</p>
+        <p className="p u-align--center u-pad--top-l">Who are you?</p>
         <p className="p">
           <input
             className="input"

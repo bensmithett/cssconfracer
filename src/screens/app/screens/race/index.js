@@ -27,10 +27,6 @@ const RacePage = React.createClass({
       currentStatus: RaceMarshalStore.getStatus(),
       currentRaceId: RaceMarshalStore.getRaceId(),
       progress: 0,
-      
-      // TODO: This will need to be an object that starts timing upon race start & has a getFinalTime() method we can grab upon completion
-      // Or maybe just subtract 2 times that you get from MarshalUtils...
-      timer: null,
     });
   },
 
@@ -90,27 +86,26 @@ const RacePage = React.createClass({
 
   render () {
     const disabled = this.state.currentStatus === MarshalStatus.ENGINE_STARTED;
-    const top = 100 - (this.state.progress * 10);
+    const right = 100 - (this.state.progress * 10);
 
     return (
-      <div className="racing">
-        <div className="racing__track">
-          <div className="racing__car-path">
+      <div className="container -pad">
+        <div className="racing">
+          <div className="racing__grid">
+            start here, as wide as cars
+          </div>
+
+          <div className="racing__track">
             <div
               className="racing__car"
               style={{
-                top: top + "%",
+                right: right + "%",
               }}
             />
           </div>
-
         </div>
 
-        <div className="racing__grid">
-          start here, high as car
-        </div>
-
-        <div className="racing__btn">
+        <div className="u-pad--top-l">
           <p className="p">
             <button
               className={"btn u-font-size--l" + (disabled ? " -is-disabled" : "")}
