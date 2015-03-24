@@ -3,9 +3,9 @@ import React from "react";
 const SignedOutHomepage = React.createClass({
   render () {
     return (
-      <div>        
-        Creating new user in Firebase...
-      </div>
+      <p className="p u-align--center u-pad--top-l">
+        Registering device...
+      </p>
     );
   },
 });
