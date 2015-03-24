@@ -13,6 +13,8 @@ import createStoreMixin from "mixins/create_store_mixin";
 import AuthMixin from "mixins/auth_mixin";
 import {Navigation as NavigationMixin} from "react-router";
 
+import Tappable from "react-tappable";
+
 import {start, stop} from "utils/stopwatch_utils";
 
 const RacePage = React.createClass({
@@ -35,7 +37,7 @@ const RacePage = React.createClass({
   },
 
   componentWillUpdate (nextProps, nextState) {
-    if (nextState.progress > 10) {
+    if (nextState.progress >= 100) {
       this._handleRaceCompletion();
     }
   },
@@ -74,8 +76,9 @@ const RacePage = React.createClass({
   _increment () {
     // Instead of reading the current user's progress from the shared Race store, treat this component's state as the source
     // of truth for progress & just broadcast it to other users.
+    const bump = Math.ceil(Math.random() * 2)
     this.setState({
-      progress: this.state.progress + 1,
+      progress: this.state.progress + bump,
     });
   },
 
@@ -86,14 +89,12 @@ const RacePage = React.createClass({
 
   render () {
     const disabled = this.state.currentStatus === MarshalStatus.ENGINE_STARTED;
-    const right = 100 - (this.state.progress * 10);
+    const right = 100 - this.state.progress;
 
     return (
-      <div className="container -pad">
+      <div className="u-pad--top-l">
         <div className="racing">
-          <div className="racing__grid">
-            start here, as wide as cars
-          </div>
+          <div className="racing__grid" />
 
           <div className="racing__track">
             <div
@@ -105,16 +106,28 @@ const RacePage = React.createClass({
           </div>
         </div>
 
-        <div className="u-pad--top-l">
-          <p className="p">
-            <button
-              className={"btn u-font-size--l" + (disabled ? " -is-disabled" : "")}
-              onClick={this._increment}
-              disabled={disabled}
-            >
-              Drive!
-            </button>
-          </p>
+        <div className="container -pad">
+          <div className="u-pad--top-l">
+            <p className="p">
+              {
+                disabled ?
+                <button
+                  disabled={true}
+                  className="btn u-font-size--l -is-disabled"
+                >
+                  Ready...
+                </button>
+                :
+                <Tappable
+                  component="button"
+                  className="btn u-font-size--l"
+                  onTap={this._increment}
+                >
+                  Drive!
+                </Tappable>
+              }
+            </p>
+          </div>
         </div>
       </div>
     );

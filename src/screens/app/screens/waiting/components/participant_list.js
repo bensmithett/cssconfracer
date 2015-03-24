@@ -8,7 +8,10 @@ const ParticipantList = React.createClass({
           {
             this.props.participants.map((participant, key) => {
               return (
-                <p className="p" key={key}>
+                <p
+                  className={"p -min-margin" + (this.props.userId === key ? " -highlight" : "")}
+                  key={key}
+                >
                   {participant.get("username")}
                 </p>
               );

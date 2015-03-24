@@ -57,7 +57,7 @@ const ApiUtils = {
   saveRaceResult (raceId, userId, time) {
     fbRaces.child(raceId).child(userId).update({
       time: time,
-      progress: 11,
+      progress: 100,
     });
   },
 

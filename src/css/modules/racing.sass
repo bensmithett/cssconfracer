@@ -1,25 +1,29 @@
 .racing
+  background-image: url("../../img/check.png"), url("../../img/track.png")
+  background-position: top right
+  background-repeat: no-repeat, repeat
+  background-size: auto 300px
   display: flex
   height: 300px
   position: relative
 
 .racing__grid
-  background: blue
   float: left
   height: 100%;
-  width: 70px
+  width: 75px
 
 .racing__track
-  background: green
   flex: 1
   height: 100%
   position: relative
 
 .racing__car
-  background: yellow
-  height: 50px
+  background-image: url("../../img/car.png")
+  background-size: 75px 40px
+  height: 40px
   position: absolute
   top: 50%
-  transform: translateY(-50%)
+  transform: translateY(-50%) translate3d(0, 0, 0);
+  transition: right 0.1s
   right: 100%
-  width: 60px
+  width: 75px
