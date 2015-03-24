@@ -28,7 +28,7 @@ const WaitingPage = React.createClass({
 
   componentWillUpdate (nextProps, nextState) {
     if (this.state.status === MarshalStatus.WAITING && nextState.status === MarshalStatus.ENGINE_STARTED) {
-      this.transitionTo("race");
+      this.replaceWith("race");
     }
   },
 

@@ -3,7 +3,7 @@ var Router = require("react-router");
 
 var router = Router.create({
   routes: routes,
-  location: Router.HistoryLocation,
+  location: Router.HashLocation,
 });
 
 module.exports = router;

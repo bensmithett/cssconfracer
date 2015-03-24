@@ -1,11 +1,13 @@
 import React from "react";
 import AuthStore from "stores/auth_store";
 import {updatedUsername} from "actions/view_action_creators";
-import {Link} from "react-router";
+import {Navigation as NavigationMixin} from "react-router";
 
 const validate = (username) => (username !== "") && (username.indexOf(" ") === -1);
 
 const SignedInHomepage = React.createClass({
+  mixins: [NavigationMixin],
+
   getInitialState () {
     return {
       valid: validate(this.props.user)
@@ -22,30 +24,37 @@ const SignedInHomepage = React.createClass({
     updatedUsername(AuthStore.getSignedInUser(), event.target.value);
   },
 
+  _handleSubmit (event) {
+    event.preventDefault();
+    this.replaceWith("waiting");
+  },
+
   render () {
     return (
       <div className="container -pad -really-constrain-width">
-        <p className="p u-align--center u-pad--top-l">Who are you?</p>
-        <p className="p">
-          <input
-            className="input"
-            value={this.props.user}
-            onChange={this._handleUsernameChange}
-          />
-        </p>
+        <form onSubmit={this._handleSubmit}>
+          <p className="p u-align--center u-pad--top-l">Who are you?</p>
+          <p className="p">
+            <input
+              className="input"
+              value={this.props.user}
+              onChange={this._handleUsernameChange}
+            />
+          </p>
 
-        <p className="p u-margin--bottom-l">
-          {
-            this.state.valid ?
-            <Link to="waiting" className="btn u-font-size--l">
-              Go Race!
-            </Link>
-            :
-            <button disabled={true} className="btn -is-disabled u-font-size--l">
-              Nope
-            </button>
-          }
-        </p>
+          <p className="p u-margin--bottom-l">
+            {
+              this.state.valid ?
+              <button type="submit" className="btn u-font-size--l">
+                Go Race!
+              </button>
+              :
+              <button type="submit" disabled={true} className="btn -is-disabled u-font-size--l">
+                Nope
+              </button>
+            }
+          </p>
+        </form>
       </div>
     );
   },

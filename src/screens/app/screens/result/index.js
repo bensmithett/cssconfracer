@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router";
+import {Link, Navigation as NavigationMixin} from "react-router";
 
 import UserStore from "stores/user_store";
 import AuthStore from "stores/auth_store";
@@ -15,6 +15,7 @@ const ResultPage = React.createClass({
   mixins: [
     AuthMixin,
     createStoreMixin(UserStore, RaceStore),
+    NavigationMixin,
   ],
 
   componentWillMount () {
@@ -41,6 +42,14 @@ const ResultPage = React.createClass({
     };
   },
 
+  _goToWaiting () {
+    this.replaceWith("waiting");
+  },
+
+  _goToHome () {
+    this.replaceWith("/");
+  },
+
   render () {
     return (
       <div className="u-pad--top-l">
@@ -65,15 +74,15 @@ const ResultPage = React.createClass({
           <div className="container -pad">
             <div className="grid -gutters u-margin--bottom-l u-pad--top-l">
               <div className="grid__col -span-6">
-                <Link to="waiting" className="btn u-font-size--l">
+                <button onClick={this._goToWaiting} className="btn u-font-size--l">
                   Again!
-                </Link>
+                </button>
               </div>
 
               <div className="grid__col -span-6">
-                <Link to="/" className="btn u-font-size--l">
+                <button onClick={this._goToHome} className="btn u-font-size--l">
                   Home
-                </Link>
+                </button>
               </div>
             </div>
           </div>

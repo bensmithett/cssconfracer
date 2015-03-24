@@ -84,7 +84,7 @@ const RacePage = React.createClass({
 
   _handleRaceCompletion () {
     completedRace(this.state.currentRaceId, this.state.userId, stop());
-    this.transitionTo("result", null, {raceId: this.state.currentRaceId});
+    this.replaceWith("result", null, {raceId: this.state.currentRaceId});
   },
 
   render () {
