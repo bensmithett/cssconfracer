@@ -17,6 +17,8 @@ const Top = React.createClass({
 
           <p className="p u-align--center">
             Made with ❤ by <a className="a" href="https://twitter.com/bensmithett" target="_blank">@bensmithett</a>
+            <br />
+            See how it's made at <a className="a" href="http://decompress.com.au/" target="_blank">Decompress</a>
           </p>
         </div>
       </div>
