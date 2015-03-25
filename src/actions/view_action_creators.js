@@ -13,7 +13,7 @@ module.exports = {
   },
 
   requestUserCreation () {
-    Api.createUser("starter-username");
+    Api.createUser("internetexplorer");
   },
 
   registerRaceParticipation (raceId, userId, username) {

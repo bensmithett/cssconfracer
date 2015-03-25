@@ -10,7 +10,7 @@ const ParticipantList = React.createClass({
         <div className="container -pad">
           {
             this.props.participants.filter((result) => {
-              return result.get("progress") > 10;
+              return result.get("progress") >= 100;
             }).sort((a, b) => {
               const aTime = a.get("time");
               const bTime = b.get("time");
