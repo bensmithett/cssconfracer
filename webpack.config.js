@@ -14,7 +14,7 @@ module.exports = {
   output: {
     filename: "[name].js",
     path: path.join(__dirname, "./build"),
-    publicPath: "/build/"
+    publicPath: ""
   },
   resolve: {
     extensions: ["", ".js", ".css", ".sass", ".jpg", ".png", ".svg", ".gif"],

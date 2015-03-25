@@ -12,7 +12,7 @@ module.exports = {
   output: {
     filename: "[name].js",
     path: path.join(__dirname, "./build"),
-    publicPath: "/build/"
+    publicPath: ""
   },
   resolve: {
     extensions: ["", ".js", ".css", ".sass", ".jpg", ".png", ".svg", ".gif"],
@@ -59,5 +59,8 @@ module.exports = {
         warnings: true
       }
     }),
+    // Don't include every possible locale in moment
+    // http://stackoverflow.com/a/25426019
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
   ]
 };
