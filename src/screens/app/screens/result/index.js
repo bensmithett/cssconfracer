@@ -19,9 +19,12 @@ const ResultPage = React.createClass({
   ],
 
   componentWillMount () {
+    const time = parseInt(this.props.query.time);
+
     this.setState({
       // An artificial delay that should ensure the winner doesn't change too much due to network lag
       resultsTallied: false,
+      selfTime: isNaN(time) ? null : time,
     });
   },
 
@@ -51,16 +54,28 @@ const ResultPage = React.createClass({
   },
 
   render () {
+    let time = null;
+    if (this.state.raceResults) {
+      time = formatScore(this.state.raceResults.get(this.state.userId).get("time"));
+    } else {
+      time = formatScore(this.state.selfTime);
+    }
+
     return (
       <div className="u-pad--top-l">
         <div>
           <p className="p u-align--center">Your time</p>
-          <p className="h1 u-align--center">
-            {formatScore(this.state.raceResults.get(this.state.userId).get("time"))}
-          </p>
+          {
+            time ?
+            <p className="h1 u-align--center">
+              {time}
+            </p>
+            :
+            null
+          }
 
           {
-            this.state.resultsTallied ?
+            this.state.resultsTallied && this.state.raceResults ?
             <ParticipantList participants={this.state.raceResults} userId={this.state.userId} />
             :
             <p className="p u-align--center">

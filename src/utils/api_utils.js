@@ -1,4 +1,5 @@
 import Actions from "actions/server_action_creators";
+import Firebase from "firebase";
 
 const fb = new Firebase("https://cssconfracer.firebaseio.com/");
 const fbUsers = fb.child("users");
@@ -14,7 +15,7 @@ const ApiUtils = {
     } else {
       fb.authAnonymously((err, authData) => {
         if (err) {
-          console.log("Firebase user auth failed...");
+          alert("Trouble connecting :( try reloading the page.");
         } else {
           if (!username) {
             username = initialUsername;

@@ -83,8 +83,9 @@ const RacePage = React.createClass({
   },
 
   _handleRaceCompletion () {
-    completedRace(this.state.currentRaceId, this.state.userId, stop());
-    this.replaceWith("result", null, {raceId: this.state.currentRaceId});
+    const finalTime = stop();
+    completedRace(this.state.currentRaceId, this.state.userId, finalTime);
+    this.replaceWith("result", null, {raceId: this.state.currentRaceId, time: finalTime});
   },
 
   render () {
