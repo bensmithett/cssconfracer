@@ -1,4 +1,4 @@
-# StupidRacer
+# CSSConf Racer
 
 A stupid real time multiplayer racing game, built for a [talk at Decompress 2015](http://lanyrd.com/2015/decompressau/sdhqqz/) and as an excuse to experiment with this stuff:
 
