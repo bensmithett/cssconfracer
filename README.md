@@ -8,6 +8,12 @@ A stupid real time multiplayer racing game, built for a [talk at Decompress 2015
 - @ryanflorence's [project folder structure](https://gist.github.com/ryanflorence/daafb1e3cb8ad740b346) for React apps
 - [Firebase](https://www.firebase.com/)
 
+## To run locally
+
+- `npm install`
+- `npm start`
+- Visit localhost:3000
+
 ## Why is this code so terrible?!
 
 I made this on my couch over a few nights while simultaneously binge-watching House of Cards. While I tried to keep it pretty neat, there are definitely rushed bits, duplicated bits & the odd performance snafu. Pull requests welcome!
